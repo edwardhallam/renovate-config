@@ -6,31 +6,55 @@
     ":semanticCommits"
   ],
   "minimumReleaseAge": "7 days",
-  "schedule": ["before 6am on monday"],
+  "schedule": [
+    "before 6am on monday"
+  ],
   "packageRules": [
     {
       "description": "Auto-merge all update types when CI passes (safety via minimumReleaseAge + CI gate)",
-      "matchUpdateTypes": ["patch", "minor", "major", "digest", "pin"],
+      "matchUpdateTypes": [
+        "patch",
+        "minor",
+        "major",
+        "digest",
+        "pin"
+      ],
       "automerge": true
     },
     {
+      "description": "flux-swift Xcode Cloud has pre-existing config issues (missing test bundles, archive export failure) unrelated to Renovate. Manual review per PR until Xcode workflow is fixed.",
+      "matchRepositories": [
+        "edwardhallam/flux-swift"
+      ],
+      "automerge": false
+    },
+    {
       "description": "Pin Docker tags to immutable digests",
-      "matchManagers": ["dockerfile", "docker-compose"],
+      "matchManagers": [
+        "dockerfile",
+        "docker-compose"
+      ],
       "pinDigests": true
     },
     {
       "description": "Lockfile maintenance unaffected by minimumReleaseAge (package-manager-controlled)",
-      "matchUpdateTypes": ["lockFileMaintenance"],
+      "matchUpdateTypes": [
+        "lockFileMaintenance"
+      ],
       "minimumReleaseAge": null
     },
     {
       "description": "Package replacements unaffected by minimumReleaseAge (Renovate limitation - issue #39400)",
-      "matchUpdateTypes": ["replacement"],
+      "matchUpdateTypes": [
+        "replacement"
+      ],
       "minimumReleaseAge": null
     },
     {
       "description": "Pin update types do not wire in release age (Renovate limitation - issue #40288). Matches security:minimumReleaseAgeNpm preset.",
-      "matchUpdateTypes": ["pin"],
+      "matchUpdateTypes": [
+        "pin"
+      ],
       "minimumReleaseAge": null
     }
   ],
@@ -38,7 +62,9 @@
   "vulnerabilityAlerts": {
     "enabled": true,
     "automerge": true,
-    "schedule": ["at any time"],
+    "schedule": [
+      "at any time"
+    ],
     "minimumReleaseAge": null
   },
   "prCreation": "immediate"
