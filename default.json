@@ -22,13 +22,6 @@
       "automerge": true
     },
     {
-      "description": "flux-swift Xcode Cloud has pre-existing config issues (missing test bundles, archive export failure) unrelated to Renovate. Manual review per PR until Xcode workflow is fixed.",
-      "matchRepositories": [
-        "edwardhallam/flux-swift"
-      ],
-      "automerge": false
-    },
-    {
       "description": "Pin Docker tags to immutable digests",
       "matchManagers": [
         "dockerfile",
