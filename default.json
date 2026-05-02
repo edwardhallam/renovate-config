@@ -6,6 +6,7 @@
     ":semanticCommits"
   ],
   "minimumReleaseAge": "7 days",
+  "internalChecksFilter": "strict",
   "schedule": [
     "before 6am on monday"
   ],
@@ -69,5 +70,5 @@
     ],
     "minimumReleaseAge": null
   },
-  "prCreation": "immediate"
+  "prCreation": "not-pending"
 }
