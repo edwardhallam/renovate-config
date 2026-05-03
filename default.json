@@ -12,21 +12,15 @@
   ],
   "packageRules": [
     {
-      "description": "Auto-merge non-major updates when CI passes (safety via minimumReleaseAge + CI gate)",
+      "description": "Auto-merge all update types when CI passes (safety via minimumReleaseAge + CI gate)",
       "matchUpdateTypes": [
         "patch",
         "minor",
+        "major",
         "digest",
         "pin"
       ],
       "automerge": true
-    },
-    {
-      "description": "Major updates require human review and merge after the 7-day gate and CI checks pass",
-      "matchUpdateTypes": [
-        "major"
-      ],
-      "automerge": false
     },
     {
       "description": "Pin Docker tags to immutable digests",
