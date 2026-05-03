@@ -18,6 +18,7 @@
         "minor",
         "major",
         "digest",
+        "pinDigest",
         "pin"
       ],
       "automerge": true
