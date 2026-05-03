@@ -48,7 +48,8 @@
     {
       "description": "Pin update types do not wire in release age (Renovate limitation - issue #40288). Matches security:minimumReleaseAgeNpm preset.",
       "matchUpdateTypes": [
-        "pin"
+        "pin",
+        "pinDigest"
       ],
       "minimumReleaseAge": null
     }
