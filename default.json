@@ -73,5 +73,5 @@
     ],
     "minimumReleaseAge": null
   },
-  "prCreation": "not-pending"
+  "prCreation": "immediate"
 }
