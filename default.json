@@ -33,6 +33,16 @@
       "pinDigests": true
     },
     {
+      "description": "Use digest-specific branches so moving Docker tags create a new PR per resolved digest",
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchUpdateTypes": [
+        "digest"
+      ],
+      "branchTopic": "{{{depNameSanitized}}}-{{{currentValue}}}-{{{newDigestShort}}}"
+    },
+    {
       "description": "Lockfile maintenance unaffected by minimumReleaseAge (package-manager-controlled)",
       "matchUpdateTypes": [
         "lockFileMaintenance"
