@@ -1,0 +1,54 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":semanticCommits"
+  ],
+  "enabledManagers": [
+    "github-actions"
+  ],
+  "minimumReleaseAge": "7 days",
+  "internalChecksFilter": "strict",
+  "timezone": "America/Los_Angeles",
+  "schedule": [
+    "* 5-8 * * 1-5"
+  ],
+  "packageRules": [
+    {
+      "description": "Auto-merge this preset repo's workflow dependency updates when CI passes.",
+      "matchUpdateTypes": [
+        "patch",
+        "minor",
+        "major",
+        "digest",
+        "pinDigest",
+        "pin"
+      ],
+      "automerge": true
+    },
+    {
+      "description": "Lockfile maintenance is package-manager-controlled.",
+      "matchUpdateTypes": [
+        "lockFileMaintenance"
+      ],
+      "minimumReleaseAge": null
+    },
+    {
+      "description": "Package replacements are not wired to release age by Renovate.",
+      "matchUpdateTypes": [
+        "replacement"
+      ],
+      "minimumReleaseAge": null
+    }
+  ],
+  "prConcurrentLimit": 5,
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "automerge": true,
+    "schedule": [
+      "at any time"
+    ],
+    "minimumReleaseAge": null
+  },
+  "prCreation": "immediate"
+}
