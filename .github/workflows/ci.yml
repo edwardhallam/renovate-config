@@ -18,5 +18,5 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: "24"
-      - name: Validate shared Renovate preset
-        run: npx --yes -p renovate renovate-config-validator default.json
+      - name: Validate Renovate configs
+        run: scripts/validate-renovate.sh
