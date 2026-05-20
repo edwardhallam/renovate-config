@@ -25,6 +25,18 @@
       "automerge": true
     },
     {
+      "description": "Keep the TypeScript compiler and ESLint TypeScript parser stack together",
+      "matchManagers": [
+        "npm"
+      ],
+      "matchPackageNames": [
+        "typescript",
+        "typescript-eslint",
+        "@typescript-eslint/*"
+      ],
+      "groupName": "typescript-eslint toolchain"
+    },
+    {
       "description": "Pin Docker tags to immutable digests",
       "matchManagers": [
         "dockerfile",
