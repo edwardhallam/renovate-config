@@ -34,7 +34,8 @@
         "typescript-eslint",
         "@typescript-eslint/*"
       ],
-      "groupName": "typescript-eslint toolchain"
+      "groupName": "typescript-eslint toolchain",
+      "rangeStrategy": "bump"
     },
     {
       "description": "Pin Docker tags to immutable digests",
