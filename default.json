@@ -25,6 +25,18 @@
       "automerge": true
     },
     {
+      "description": "Gate Biome toolchain updates; new diagnostics often require a safe formatting/import pass",
+      "matchManagers": [
+        "npm"
+      ],
+      "matchPackageNames": [
+        "@biomejs/biome"
+      ],
+      "groupName": "biome toolchain",
+      "automerge": false,
+      "dependencyDashboardApproval": true
+    },
+    {
       "description": "Keep the TypeScript compiler and ESLint TypeScript parser stack together",
       "matchManagers": [
         "npm"
