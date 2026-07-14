@@ -28,3 +28,8 @@ Validate changes before merging:
 ```bash
 scripts/validate-renovate.sh
 ```
+
+Platform-native automerge is deliberately disabled in the shared preset.
+Renovate remains the merge decision-maker so its own pending internal checks,
+including the minimum-release-age check, cannot be bypassed by a repository
+whose branch protection requires only a subset of checks.
