@@ -84,6 +84,16 @@
       "minimumReleaseAge": null
     },
     {
+      "description": "Docker digest updates cannot resolve a release age on moving tags (tailscale:stable, python:3.14-slim, cloudflared:latest), so minimumReleaseAge leaves renovate/stability-days pending forever and automerge never fires - container digests silently stopped updating estate-wide (found 2026-08-20: PRs stuck 44-114 days). CI (test + docker-build) remains the safety gate; ignoreTests stays false.",
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchUpdateTypes": [
+        "digest"
+      ],
+      "minimumReleaseAge": null
+    },
+    {
       "description": "Pin update types do not wire in release age (Renovate limitation - issue #40288). Matches security:minimumReleaseAgeNpm preset.",
       "matchUpdateTypes": [
         "pin",
@@ -95,7 +105,9 @@
   "customManagers": [
     {
       "customType": "regex",
-      "fileMatch": ["ansible/runtime-versions\\.ya?ml$"],
+      "fileMatch": [
+        "ansible/runtime-versions\\.ya?ml$"
+      ],
       "matchStrings": [
         "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)\\s+\\w+_version:\\s+[\"']?(?<currentValue>.+?)[\"']?$"
       ]
