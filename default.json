@@ -100,6 +100,13 @@
         "pinDigest"
       ],
       "minimumReleaseAge": null
+    },
+    {
+      "description": "Majors: rebase only on conflict \u2014 a red major otherwise rebases every schedule window, re-running CI and re-firing failure email for weeks (spicy-tools 07-22..08-20). New releases still update the PR.",
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "rebaseWhen": "conflicted"
     }
   ],
   "customManagers": [

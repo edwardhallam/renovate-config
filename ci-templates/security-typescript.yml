@@ -1,0 +1,68 @@
+# Template: TypeScript security gate (pnpm audit + OSV lockfile scan)
+# Copy to .github/workflows/security.yml in target repo
+# Adapt: cron minute (stagger across repos), path filters, node version
+# (node-version-file: '.nvmrc' if the repo has one).
+# Optional: add a Trivy image-scan job if the repo builds a Docker image
+# (see cadence .github/workflows/security.yml for the full model).
+#
+# Why: repos without this gate depend entirely on Dependabot alerts +
+# Renovate vulnerabilityAlerts. ctm-service had no gate and the
+# deepmerge-ts HIGH (GHSA-ggr8-5vv4-36mx) sat unpatched for a week
+# (2026-08-17..24) while cadence's gate caught it same-day.
+name: Security Checks
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 10 * * 1'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/security.yml'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'src/**'
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/security.yml'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'src/**'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: security-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  pnpm-audit:
+    name: pnpm audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          cache: pnpm
+      - name: Audit production dependencies
+        run: pnpm audit --prod --audit-level=moderate
+      - name: Audit all dependencies
+        run: pnpm audit --audit-level=moderate
+
+  osv-lockfile:
+    name: OSV lockfile scan
+    uses: google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v2.3.8
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+    with:
+      upload-sarif: false
+      fail-on-vuln: true
+      scan-args: |-
+        --lockfile=./pnpm-lock.yaml
