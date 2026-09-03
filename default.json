@@ -3,11 +3,13 @@
   "extends": [
     "config:recommended",
     "docker:pinDigests",
+    "helpers:pinGitHubActionDigestsToSemver",
     ":semanticCommits"
   ],
-  "minimumReleaseAge": "7 days",
+  "minimumReleaseAge": "14 days",
   "internalChecksFilter": "strict",
   "platformAutomerge": false,
+  "automerge": false,
   "ignoreTests": false,
   "timezone": "America/Los_Angeles",
   "schedule": [
@@ -15,7 +17,7 @@
   ],
   "packageRules": [
     {
-      "description": "Auto-merge all update types when CI passes (safety via minimumReleaseAge + CI gate)",
+      "description": "Renovate creates and updates dependency PRs; the external steward is the sole merge authority",
       "matchUpdateTypes": [
         "patch",
         "minor",
@@ -24,7 +26,7 @@
         "pinDigest",
         "pin"
       ],
-      "automerge": true
+      "automerge": false
     },
     {
       "description": "Gate Biome toolchain updates; new diagnostics often require a safe formatting/import pass",
@@ -84,7 +86,7 @@
       "minimumReleaseAge": null
     },
     {
-      "description": "Docker digest updates cannot resolve a release age on moving tags (tailscale:stable, python:3.14-slim, cloudflared:latest), so minimumReleaseAge leaves renovate/stability-days pending forever and automerge never fires - container digests silently stopped updating estate-wide (found 2026-08-20: PRs stuck 44-114 days). CI (test + docker-build) remains the safety gate; ignoreTests stays false.",
+      "description": "Docker digest updates cannot resolve a release timestamp on moving tags. Renovate may create the PR without its native age check, but the external steward must enforce the immutable 14-day first-seen gate before merge.",
       "matchDatasources": [
         "docker"
       ],
@@ -94,7 +96,7 @@
       "minimumReleaseAge": null
     },
     {
-      "description": "Pin update types do not wire in release age (Renovate limitation - issue #40288). Matches security:minimumReleaseAgeNpm preset.",
+      "description": "Pin update types do not wire in Renovate release age (issue #40288). The external steward must enforce a trusted 14-day registry-release gate, or immutable first-seen when no trustworthy publish timestamp exists, before merge.",
       "matchUpdateTypes": [
         "pin",
         "pinDigest"
@@ -123,7 +125,7 @@
   "prConcurrentLimit": 5,
   "vulnerabilityAlerts": {
     "enabled": true,
-    "automerge": true,
+    "automerge": false,
     "schedule": [
       "at any time"
     ],
